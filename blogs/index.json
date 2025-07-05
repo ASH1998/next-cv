@@ -1,5 +1,12 @@
 [
   {
+    "filename": "fixing-github-pages-markdown-rendering.md",
+    "title": "Fixing GitHub Pages Markdown Rendering Issues",
+    "date": "2025-07-06",
+    "tags": ["GitHub Pages", "JavaScript", "Markdown", "Web Development", "Debugging"],
+    "excerpt": "A comprehensive guide to troubleshooting and fixing markdown rendering issues when deploying a static blog to GitHub Pages."
+  },
+  {
     "filename": "getting-started-with-ai.md",
     "title": "Getting Started with AI: A Developer's Journey",
     "date": "2024-12-15",
