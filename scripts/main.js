@@ -49,21 +49,26 @@ function initializeSmoothScrolling() {
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
             
-            if (targetElement) {
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight;
+            // Only prevent default and apply smooth scrolling for anchor links
+            if (targetId && targetId.startsWith('#')) {
+                e.preventDefault();
+                const targetElement = document.querySelector(targetId);
                 
-                window.scrollTo({
-                    top: Math.max(0, targetPosition),
-                    behavior: 'smooth'
-                });
-                
-                closeMobileMenu();
+                if (targetElement) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: Math.max(0, targetPosition),
+                        behavior: 'smooth'
+                    });
+                }
             }
+            
+            // Close mobile menu for all navigation links
+            closeMobileMenu();
         });
     });
     
@@ -231,7 +236,7 @@ function initializeMobileMenu() {
         <ul class="mobile-menu-links">
             <li><a href="#about" class="mobile-menu-link">About</a></li>
             <li><a href="#experience" class="mobile-menu-link">Experience</a></li>
-            <li><a href="blogs.html" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Blogs</a></li>
+            <li><a href="blogs.html" class="mobile-menu-link">Blogs</a></li>
             <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
         </ul>
     `;
