@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileMenu();
     initializeTypewriterEffect();
     initializeTechStackToggle();
+    initializeStarField();
 });
 
 function initializeTheme() {
@@ -261,6 +262,79 @@ function initializeTechStackToggle() {
             }, 200);
         }
     });
+}
+
+function initializeStarField() {
+    const heroStars = document.querySelector('.hero-stars');
+    const numberOfStars = 60;
+    
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        // Random position
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        
+        // Random size (1-4px) with weighted distribution for smaller stars
+        const sizeRandom = Math.random();
+        let size;
+        if (sizeRandom < 0.7) {
+            size = Math.random() * 1.5 + 1; // 1-2.5px (70% chance)
+        } else if (sizeRandom < 0.9) {
+            size = Math.random() * 1 + 2.5; // 2.5-3.5px (20% chance)
+        } else {
+            size = Math.random() * 1 + 3.5; // 3.5-4.5px (10% chance)
+        }
+        
+        // Random animation duration
+        const twinkleDuration = Math.random() * 4 + 3; // 3-7 seconds
+        const swayDuration = Math.random() * 8 + 8; // 8-16 seconds
+        
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.animationDuration = `${twinkleDuration}s, ${swayDuration}s`;
+        
+        // Random delay
+        const delay = Math.random() * 6;
+        star.style.animationDelay = `${delay}s`;
+        
+        heroStars.appendChild(star);
+    }
+    
+    // Add some shooting stars occasionally
+    setInterval(() => {
+        if (Math.random() < 0.3) { // 30% chance every 8 seconds
+            createShootingStar();
+        }
+    }, 8000);
+}
+
+function createShootingStar() {
+    const heroStars = document.querySelector('.hero-stars');
+    const shootingStar = document.createElement('div');
+    shootingStar.className = 'shooting-star';
+    
+    // Random starting position (from top or left edge)
+    const startFromTop = Math.random() < 0.5;
+    if (startFromTop) {
+        shootingStar.style.left = Math.random() * 100 + '%';
+        shootingStar.style.top = '0%';
+    } else {
+        shootingStar.style.left = '0%';
+        shootingStar.style.top = Math.random() * 100 + '%';
+    }
+    
+    heroStars.appendChild(shootingStar);
+    
+    // Remove after animation
+    setTimeout(() => {
+        if (shootingStar.parentNode) {
+            shootingStar.parentNode.removeChild(shootingStar);
+        }
+    }, 2000);
 }
 
 function debounce(func, wait) {
