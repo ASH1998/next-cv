@@ -1,0 +1,32 @@
+# GitHub Pages configuration
+# This ensures that GitHub Pages serves files correctly
+
+# Include markdown files in the build
+include:
+  - "_*"
+  - "*.md"
+  - "blogs/*.md"
+
+# Exclude unnecessary files
+exclude:
+  - "README.md"
+  - "CLAUDE.md"
+  - "CLAUDE.local.md"
+
+# Plugins for GitHub Pages
+plugins:
+  - jekyll-relative-links
+
+# Markdown processor
+markdown: kramdown
+
+# Enable relative links
+relative_links:
+  enabled: true
+  collections: false
+
+# Configure kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge

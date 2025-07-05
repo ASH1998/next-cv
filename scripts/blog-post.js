@@ -1,3 +1,23 @@
+// Helper function to get the correct resource URL
+function getResourceUrl(relativePath) {
+    // Check if we're running on GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    
+    if (isGitHubPages) {
+        // Get the repository name from the path
+        const pathParts = window.location.pathname.split('/');
+        const repoName = pathParts[1]; // Assuming the repo name is the first part of the path
+        
+        // If we have a repository name and it's not the root, prepend it
+        if (repoName && repoName !== '' && !relativePath.startsWith('/')) {
+            return `/${repoName}/${relativePath}`;
+        }
+    }
+    
+    // For local development or if path is already absolute
+    return relativePath;
+}
+
 // Blog post functionality
 document.addEventListener('DOMContentLoaded', function() {
     initializeBlogPost();
@@ -20,7 +40,14 @@ async function initializeBlogPost() {
         }
 
         // Load blog index to get metadata
-        const indexResponse = await fetch('blogs/index.json');
+        const indexUrl = getResourceUrl('blogs/index.json');
+        console.log('Fetching blog index from:', indexUrl);
+        const indexResponse = await fetch(indexUrl);
+        
+        if (!indexResponse.ok) {
+            throw new Error(`Failed to fetch blog index: ${indexResponse.status} ${indexResponse.statusText}`);
+        }
+        
         const blogPosts = await indexResponse.json();
 
         // Find the blog post metadata
@@ -43,8 +70,21 @@ async function initializeBlogPost() {
         blogPostTags.innerHTML = blogPost.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('');
 
         // Load and display markdown content
-        const contentResponse = await fetch(`blogs/${filename}`);
+        const contentUrl = getResourceUrl(`blogs/${filename}`);
+        console.log('Fetching markdown content from:', contentUrl);
+        const contentResponse = await fetch(contentUrl);
+        
+        if (!contentResponse.ok) {
+            throw new Error(`Failed to fetch content: ${contentResponse.status} ${contentResponse.statusText}`);
+        }
+        
         const markdownContent = await contentResponse.text();
+        console.log('Markdown content loaded successfully');
+
+        // Check if marked.js is available
+        if (typeof marked === 'undefined') {
+            throw new Error('Marked.js library is not loaded. Please check your internet connection.');
+        }
 
         // Remove frontmatter (if present)
         const contentWithoutFrontmatter = removeFrontmatter(markdownContent);
@@ -66,8 +106,25 @@ async function initializeBlogPost() {
         }
     } catch (error) {
         console.error('Error loading blog post:', error);
+        console.error('Current URL:', window.location.href);
+        console.error('Current origin:', window.location.origin);
+        console.error('Current pathname:', window.location.pathname);
+        
         blogPostTitle.textContent = 'Error Loading Blog Post';
-        blogPostBody.innerHTML = `<p>Sorry, there was an error loading the blog post. Please try again later.</p>`;
+        blogPostBody.innerHTML = `
+            <div class="blog-error">
+                <h3>Sorry, there was an error loading the blog post.</h3>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p><strong>Debug Information:</strong></p>
+                <ul>
+                    <li>Current URL: ${window.location.href}</li>
+                    <li>Origin: ${window.location.origin}</li>
+                    <li>Pathname: ${window.location.pathname}</li>
+                    <li>Requested file: ${filename || 'Not specified'}</li>
+                </ul>
+                <p>Please try refreshing the page or <a href="blogs.html">go back to the blog list</a>.</p>
+            </div>
+        `;
     }
 }
 
@@ -120,13 +177,24 @@ function addCopyButtons() {
 
 function removeFrontmatter(content) {
     // Remove YAML frontmatter if present
-    if (content.startsWith('---')) {
-        const endIndex = content.indexOf('---', 3);
+    if (content.trim().startsWith('---')) {
+        const lines = content.split('\n');
+        let endIndex = -1;
+        
+        // Find the closing ---
+        for (let i = 1; i < lines.length; i++) {
+            if (lines[i].trim() === '---') {
+                endIndex = i;
+                break;
+            }
+        }
+        
         if (endIndex !== -1) {
-            return content.substring(endIndex + 3).trim();
+            // Return content after the closing ---
+            return lines.slice(endIndex + 1).join('\n').trim();
         }
     }
-    return content;
+    return content.trim();
 }
 
 // Configure marked.js options

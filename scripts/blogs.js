@@ -1,3 +1,23 @@
+// Helper function to get the correct resource URL
+function getResourceUrl(relativePath) {
+    // Check if we're running on GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    
+    if (isGitHubPages) {
+        // Get the repository name from the path
+        const pathParts = window.location.pathname.split('/');
+        const repoName = pathParts[1]; // Assuming the repo name is the first part of the path
+        
+        // If we have a repository name and it's not the root, prepend it
+        if (repoName && repoName !== '' && !relativePath.startsWith('/')) {
+            return `/${repoName}/${relativePath}`;
+        }
+    }
+    
+    // For local development or if path is already absolute
+    return relativePath;
+}
+
 // Blog functionality
 document.addEventListener('DOMContentLoaded', function() {
     initializeBlogs();
@@ -8,8 +28,16 @@ async function initializeBlogs() {
 
     try {
         // Load blog index
-        const response = await fetch('blogs/index.json');
+        const indexUrl = getResourceUrl('blogs/index.json');
+        console.log('Fetching blog index from:', indexUrl);
+        const response = await fetch(indexUrl);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to fetch blog index: ${response.status} ${response.statusText}`);
+        }
+        
         const blogPosts = await response.json();
+        console.log('Blog posts loaded successfully:', blogPosts.length);
 
         // Clear loading state
         blogsGrid.innerHTML = '';
@@ -25,9 +53,21 @@ async function initializeBlogs() {
 
     } catch (error) {
         console.error('Error loading blog posts:', error);
+        console.error('Current URL:', window.location.href);
+        console.error('Current origin:', window.location.origin);
+        console.error('Current pathname:', window.location.pathname);
+        
         blogsGrid.innerHTML = `
             <div class="blog-error">
-                <p>Error loading blog posts. Please try again later.</p>
+                <h3>Error loading blog posts</h3>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p><strong>Debug Information:</strong></p>
+                <ul>
+                    <li>Current URL: ${window.location.href}</li>
+                    <li>Origin: ${window.location.origin}</li>
+                    <li>Pathname: ${window.location.pathname}</li>
+                </ul>
+                <p>Please try refreshing the page or check the browser console for more details.</p>
             </div>
         `;
     }

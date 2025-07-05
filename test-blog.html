@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #dc2626;
+        }
+        .success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #16a34a;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blog System Test</h1>
+        
+        <div id="test-results"></div>
+        
+        <h2>Debug Information</h2>
+        <pre id="debug-info"></pre>
+        
+        <h2>Blog Index Test</h2>
+        <div id="blog-index-test"></div>
+        
+        <h2>Markdown Test</h2>
+        <div id="markdown-test"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            runTests();
+        });
+
+        async function runTests() {
+            const results = document.getElementById('test-results');
+            const debugInfo = document.getElementById('debug-info');
+            const blogIndexTest = document.getElementById('blog-index-test');
+            const markdownTest = document.getElementById('markdown-test');
+
+            // Debug information
+            debugInfo.textContent = `
+URL: ${window.location.href}
+Origin: ${window.location.origin}
+Pathname: ${window.location.pathname}
+Hostname: ${window.location.hostname}
+Is GitHub Pages: ${window.location.hostname.includes('github.io')}
+Marked.js loaded: ${typeof marked !== 'undefined'}
+            `;
+
+            // Test 1: Check if marked.js is loaded
+            if (typeof marked === 'undefined') {
+                results.innerHTML += '<div class="error">❌ Marked.js is not loaded</div>';
+                return;
+            } else {
+                results.innerHTML += '<div class="success">✅ Marked.js is loaded</div>';
+            }
+
+            // Test 2: Try to fetch blog index
+            try {
+                const indexResponse = await fetch('blogs/index.json');
+                if (indexResponse.ok) {
+                    const blogPosts = await indexResponse.json();
+                    results.innerHTML += '<div class="success">✅ Blog index loaded successfully</div>';
+                    blogIndexTest.innerHTML = `<pre>${JSON.stringify(blogPosts, null, 2)}</pre>`;
+                } else {
+                    results.innerHTML += `<div class="error">❌ Failed to load blog index: ${indexResponse.status} ${indexResponse.statusText}</div>`;
+                }
+            } catch (error) {
+                results.innerHTML += `<div class="error">❌ Error loading blog index: ${error.message}</div>`;
+            }
+
+            // Test 3: Try to fetch and parse a markdown file
+            try {
+                const markdownResponse = await fetch('blogs/getting-started-with-ai.md');
+                if (markdownResponse.ok) {
+                    const markdownContent = await markdownResponse.text();
+                    results.innerHTML += '<div class="success">✅ Markdown file loaded successfully</div>';
+                    
+                    // Parse markdown
+                    const htmlContent = marked.parse(markdownContent);
+                    results.innerHTML += '<div class="success">✅ Markdown parsed successfully</div>';
+                    
+                    markdownTest.innerHTML = htmlContent;
+                } else {
+                    results.innerHTML += `<div class="error">❌ Failed to load markdown: ${markdownResponse.status} ${markdownResponse.statusText}</div>`;
+                }
+            } catch (error) {
+                results.innerHTML += `<div class="error">❌ Error loading markdown: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
