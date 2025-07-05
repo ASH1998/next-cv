@@ -34,6 +34,10 @@
     gap: var(--spacing-lg);
   }
 
+  .experience-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+
   .projects-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
@@ -130,6 +134,7 @@
   }
 
   .tech-stack,
+  .experience,
   .projects,
   .about,
   .contact {
@@ -183,6 +188,30 @@
   .tech-icon svg {
     width: 36px;
     height: 36px;
+  }
+
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .experience-card {
+    margin: 0 var(--spacing-md);
+  }
+
+  .experience-content {
+    padding-left: 0;
+    margin-top: var(--spacing-md);
+  }
+
+  .experience-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .company-logo {
+    margin-bottom: var(--spacing-sm);
   }
 
   .projects-grid {

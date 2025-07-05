@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="blog-title">Blog Post - Ashutosh Mishra</title>
+    <meta name="description" content="Blog post by Ashutosh Mishra">
+    <meta name="keywords" content="blog, technology, programming, AI, machine learning, web development">
+    <meta name="author" content="Ashutosh Mishra">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link rel="stylesheet" href="styles/components.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="index.html" class="nav-logo">AM</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="blog-post-hero">
+            <div class="container">
+                <div class="blog-post-nav">
+                    <a href="blogs.html" class="blog-back-btn">← Back to Blogs</a>
+                </div>
+                <div class="blog-post-header">
+                    <h1 class="blog-post-title" id="blog-post-title">Loading...</h1>
+                    <div class="blog-post-meta">
+                        <span class="blog-post-date" id="blog-post-date"></span>
+                        <div class="blog-post-tags" id="blog-post-tags"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-post-content">
+            <div class="container">
+                <article class="blog-post-article">
+                    <div class="blog-post-body" id="blog-post-body">
+                        <div class="blog-loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading blog post...</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                © 2024 Ashutosh Mishra. Built with ❤️ using vanilla HTML, CSS, and JavaScript.
+            </p>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/blog-post.js"></script>
+</body>
+</html>

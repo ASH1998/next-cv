@@ -1,0 +1,23 @@
+[
+  {
+    "filename": "getting-started-with-ai.md",
+    "title": "Getting Started with AI: A Developer's Journey",
+    "date": "2024-12-15",
+    "tags": ["AI", "Machine Learning", "Python", "Development"],
+    "excerpt": "A comprehensive guide to getting started with AI development, covering essential tools, frameworks, and best practices."
+  },
+  {
+    "filename": "building-scalable-apis-fastapi.md",
+    "title": "Building Scalable APIs with FastAPI",
+    "date": "2024-11-28",
+    "tags": ["FastAPI", "Python", "API", "Backend", "Web Development"],
+    "excerpt": "Learn how to build high-performance, scalable APIs using FastAPI, including best practices for authentication, validation, and deployment."
+  },
+  {
+    "filename": "future-of-ai-agents.md",
+    "title": "The Future of AI Agents: Building Autonomous Systems",
+    "date": "2024-12-01",
+    "tags": ["AI", "Agents", "Automation", "Future Tech", "LangChain"],
+    "excerpt": "Exploring the exciting world of AI agents and how they're revolutionizing automation and decision-making in software systems."
+  }
+]

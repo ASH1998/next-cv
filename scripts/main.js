@@ -58,7 +58,7 @@ function initializeSmoothScrolling() {
                 const targetPosition = targetElement.offsetTop - headerHeight;
                 
                 window.scrollTo({
-                    top: targetPosition,
+                    top: Math.max(0, targetPosition),
                     behavior: 'smooth'
                 });
                 
@@ -79,7 +79,7 @@ function initializeSmoothScrolling() {
                     const targetPosition = targetElement.offsetTop - headerHeight;
                     
                     window.scrollTo({
-                        top: targetPosition,
+                        top: Math.max(0, targetPosition),
                         behavior: 'smooth'
                     });
                 }
@@ -89,20 +89,81 @@ function initializeSmoothScrolling() {
 }
 
 function initializeScrollIndicator() {
+    // Create the scroll indicator element
     const scrollIndicator = document.createElement('div');
     scrollIndicator.className = 'scroll-indicator';
     scrollIndicator.innerHTML = '<div class="scroll-progress"></div>';
-    document.body.appendChild(scrollIndicator);
+    
+    // Insert as the first child of body to ensure it's at the top
+    document.body.insertBefore(scrollIndicator, document.body.firstChild);
     
     const scrollProgress = scrollIndicator.querySelector('.scroll-progress');
     
-    window.addEventListener('scroll', function() {
+    function updateScrollIndicator() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
+        );
+        const windowHeight = window.innerHeight;
+        const scrollableHeight = documentHeight - windowHeight;
         
-        scrollProgress.style.width = scrollPercent + '%';
+        if (scrollableHeight <= 0) {
+            scrollProgress.style.width = '0%';
+            return;
+        }
+        
+        const scrollPercent = (scrollTop / scrollableHeight) * 100;
+        const clampedPercent = Math.min(100, Math.max(0, scrollPercent));
+        
+        scrollProgress.style.width = clampedPercent + '%';
+        
+        // Force visibility at all times
+        scrollIndicator.style.opacity = '1';
+        scrollIndicator.style.visibility = 'visible';
+        scrollIndicator.style.display = 'block';
+        scrollProgress.style.opacity = '1';
+        scrollProgress.style.display = 'block';
+    }
+    
+    // Force initial visibility
+    scrollIndicator.style.opacity = '1';
+    scrollIndicator.style.visibility = 'visible';
+    scrollIndicator.style.display = 'block';
+    scrollIndicator.style.zIndex = '1002';
+    
+    // Initial update
+    setTimeout(updateScrollIndicator, 50);
+    
+    // Update on scroll
+    window.addEventListener('scroll', updateScrollIndicator, { passive: true });
+    
+    // Update on resize
+    window.addEventListener('resize', () => {
+        setTimeout(updateScrollIndicator, 50);
     });
+    
+    // Update after page load
+    window.addEventListener('load', updateScrollIndicator);
+    
+    // Ensure it stays visible and on top
+    setInterval(() => {
+        if (scrollIndicator.style.zIndex !== '1002') {
+            scrollIndicator.style.zIndex = '1002';
+        }
+        if (scrollIndicator.style.opacity !== '1') {
+            scrollIndicator.style.opacity = '1';
+        }
+        if (scrollIndicator.style.visibility !== 'visible') {
+            scrollIndicator.style.visibility = 'visible';
+        }
+        if (scrollIndicator.style.display !== 'block') {
+            scrollIndicator.style.display = 'block';
+        }
+    }, 1000);
 }
 
 function initializeBackToTop() {
@@ -169,7 +230,8 @@ function initializeMobileMenu() {
         <button class="mobile-menu-close" aria-label="Close mobile menu">×</button>
         <ul class="mobile-menu-links">
             <li><a href="#about" class="mobile-menu-link">About</a></li>
-            <li><a href="#projects" class="mobile-menu-link">Projects</a></li>
+            <li><a href="#experience" class="mobile-menu-link">Experience</a></li>
+            <li><a href="blogs.html" class="mobile-menu-link" target="_blank" rel="noopener noreferrer">Blogs</a></li>
             <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
         </ul>
     `;

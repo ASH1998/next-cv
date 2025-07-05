@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Posts - Ashutosh Mishra</title>
+    <meta name="description" content="Blog posts and insights on technology, programming, and innovation by Ashutosh Mishra">
+    <meta name="keywords" content="blog, technology, programming, AI, machine learning, web development">
+    <meta name="author" content="Ashutosh Mishra">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link rel="stylesheet" href="styles/components.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <a href="index.html" class="nav-logo">AM</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="blogs.html" class="nav-link active">Blogs</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="blogs-hero">
+            <div class="container">
+                <h1 class="blogs-hero-title">Blog Posts</h1>
+                <p class="blogs-hero-description">
+                    Insights and thoughts on technology, programming, and innovation.
+                </p>
+            </div>
+        </section>
+
+        <section class="blogs">
+            <div class="container">
+                <div class="blogs-grid" id="blogs-grid">
+                    <div class="blog-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading blog posts...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">
+                © 2024 Ashutosh Mishra. Built with ❤️ using vanilla HTML, CSS, and JavaScript.
+            </p>
+        </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/animations.js"></script>
+    <script src="scripts/blogs.js"></script>
+</body>
+</html>
