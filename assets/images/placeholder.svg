@@ -1,0 +1,7 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" fill="#f1f5f9"/>
+  <circle cx="150" cy="120" r="40" fill="#cbd5e1"/>
+  <rect x="110" y="180" width="80" height="8" rx="4" fill="#cbd5e1"/>
+  <rect x="120" y="200" width="60" height="6" rx="3" fill="#e2e8f0"/>
+  <text x="150" y="250" text-anchor="middle" fill="#64748b" font-family="sans-serif" font-size="12">Avatar Placeholder</text>
+</svg>
