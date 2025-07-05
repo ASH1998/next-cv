@@ -51,12 +51,12 @@ function initializeSmoothScrolling() {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
             
-            // Only prevent default and apply smooth scrolling for anchor links
-            if (targetId && targetId.startsWith('#')) {
-                e.preventDefault();
+            // Only prevent default and apply smooth scrolling for same-page anchor links
+            if (targetId && targetId.startsWith('#') && !targetId.includes('index.html') && !targetId.includes('blogs.html')) {
                 const targetElement = document.querySelector(targetId);
                 
                 if (targetElement) {
+                    e.preventDefault();
                     const headerHeight = document.querySelector('.header').offsetHeight;
                     const targetPosition = targetElement.offsetTop - headerHeight;
                     
@@ -68,7 +68,9 @@ function initializeSmoothScrolling() {
             }
             
             // Close mobile menu for all navigation links
-            closeMobileMenu();
+            if (window.closeMobileMenu) {
+                window.closeMobileMenu();
+            }
         });
     });
     
@@ -221,25 +223,51 @@ function initializeRevealAnimations() {
 }
 
 function initializeMobileMenu() {
+    // Check if mobile menu toggle already exists
+    if (document.querySelector('.mobile-menu-toggle')) {
+        return;
+    }
+    
     const mobileMenuToggle = document.createElement('button');
     mobileMenuToggle.className = 'mobile-menu-toggle';
     mobileMenuToggle.innerHTML = '☰';
     mobileMenuToggle.setAttribute('aria-label', 'Toggle mobile menu');
     
     const nav = document.querySelector('.nav');
-    nav.appendChild(mobileMenuToggle);
+    if (nav) {
+        nav.appendChild(mobileMenuToggle);
+    }
     
     const mobileMenu = document.createElement('div');
     mobileMenu.className = 'mobile-menu';
-    mobileMenu.innerHTML = `
-        <button class="mobile-menu-close" aria-label="Close mobile menu">×</button>
-        <ul class="mobile-menu-links">
-            <li><a href="#about" class="mobile-menu-link">About</a></li>
-            <li><a href="#experience" class="mobile-menu-link">Experience</a></li>
-            <li><a href="blogs.html" class="mobile-menu-link">Blogs</a></li>
-            <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
-        </ul>
-    `;
+    
+    // Update mobile menu links based on the current page
+    const currentPage = window.location.pathname;
+    let mobileMenuHTML = '';
+    
+    if (currentPage.includes('blog-post.html') || currentPage.includes('blogs.html')) {
+        mobileMenuHTML = `
+            <button class="mobile-menu-close" aria-label="Close mobile menu">×</button>
+            <ul class="mobile-menu-links">
+                <li><a href="index.html#about" class="mobile-menu-link">About</a></li>
+                <li><a href="index.html#experience" class="mobile-menu-link">Experience</a></li>
+                <li><a href="blogs.html" class="mobile-menu-link">Blogs</a></li>
+                <li><a href="index.html#contact" class="mobile-menu-link">Contact</a></li>
+            </ul>
+        `;
+    } else {
+        mobileMenuHTML = `
+            <button class="mobile-menu-close" aria-label="Close mobile menu">×</button>
+            <ul class="mobile-menu-links">
+                <li><a href="#about" class="mobile-menu-link">About</a></li>
+                <li><a href="#experience" class="mobile-menu-link">Experience</a></li>
+                <li><a href="blogs.html" class="mobile-menu-link">Blogs</a></li>
+                <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
+            </ul>
+        `;
+    }
+    
+    mobileMenu.innerHTML = mobileMenuHTML;
     document.body.appendChild(mobileMenu);
     
     const mobileMenuClose = mobileMenu.querySelector('.mobile-menu-close');

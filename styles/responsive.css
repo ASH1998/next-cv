@@ -89,7 +89,7 @@
   }
 
   .nav-links {
-    display: none;
+    display: none !important;
   }
 
   .hero {
