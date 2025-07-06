@@ -1190,7 +1190,7 @@ body {
 
 .hero-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: var(--spacing-2xl);
   align-items: center;
   max-width: 1000px;
@@ -1222,6 +1222,10 @@ body {
   height: 3px;
   background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
   border-radius: 2px;
+}
+
+.highlight-no-underline {
+  color: var(--primary-color);
 }
 
 .hero-subtitle {
@@ -1280,6 +1284,8 @@ body {
   align-items: center;
   position: relative;
   z-index: 2;
+  align-self: start;
+  justify-self: end;
 }
 
 .avatar-container {
