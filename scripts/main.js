@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeTypewriterEffect();
     initializeTechStackToggle();
     initializeStarField();
+    initializeCardStars();
 });
 
 function initializeTheme() {
@@ -430,6 +431,48 @@ function createShootingStar() {
             shootingStar.parentNode.removeChild(shootingStar);
         }
     }, 2000);
+}
+
+function initializeCardStars() {
+    const cards = document.querySelectorAll('.tech-item, .tech-item.highlighted, .experience-card, .project-card');
+    
+    cards.forEach(card => {
+        // Create stars container
+        const starsContainer = document.createElement('div');
+        starsContainer.className = 'card-stars';
+        
+        // Add 10-15 small stars per card
+        const numberOfStars = Math.floor(Math.random() * 6) + 10;
+        
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'card-star';
+            
+            // Random position
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Slightly larger size (1-2.5px)
+            const size = Math.random() * 1.5 + 1;
+            
+            // Random animation duration
+            const duration = Math.random() * 2 + 2; // 2-4 seconds
+            
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDuration = `${duration}s`;
+            
+            // Random delay
+            const delay = Math.random() * 3;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+        
+        card.appendChild(starsContainer);
+    });
 }
 
 function debounce(func, wait) {
