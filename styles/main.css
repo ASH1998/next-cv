@@ -676,7 +676,6 @@ body {
   transition: all var(--transition-normal);
   cursor: pointer;
   border: 1px solid var(--border-color);
-  border-left: 4px solid var(--primary-color);
 }
 
 .experience-card:hover {

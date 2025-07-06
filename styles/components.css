@@ -992,18 +992,19 @@
 
 .blog-post-article {
   max-width: 800px;
+
   margin: 0 auto;
 }
 
 .blog-post-body {
-  font-size: var(--font-size-lg);
+  font-size: 14px;
   line-height: var(--line-height-relaxed);
   color: var(--text-primary);
 }
 
 /* Blog post content typography */
 .blog-post-body h1 {
-  font-size: var(--font-size-3xl);
+  font-size: 20px;
   font-weight: var(--font-weight-bold);
   color: var(--text-primary);
   margin: var(--spacing-2xl) 0 var(--spacing-lg) 0;
@@ -1011,7 +1012,7 @@
 }
 
 .blog-post-body h2 {
-  font-size: var(--font-size-2xl);
+  font-size: 16px;
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   margin: var(--spacing-xl) 0 var(--spacing-md) 0;
@@ -1019,7 +1020,7 @@
 }
 
 .blog-post-body h3 {
-  font-size: var(--font-size-xl);
+  font-size: 14px;
   font-weight: var(--font-weight-semibold);
   color: var(--text-primary);
   margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
@@ -1073,12 +1074,12 @@
 .blog-post-body pre {
   position: relative;
   background-color: var(--surface-color);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   border-radius: var(--border-radius);
   overflow-x: auto;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   border: 1px solid var(--border-color);
-  font-size: var(--font-size-sm);
+  font-size: 10px;
 }
 
 .blog-post-body pre code {
@@ -1086,9 +1087,9 @@
   padding: 0;
   color: var(--text-primary) !important;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  font-size: var(--font-size-sm);
+  font-size: 10px;
   display: block;
-  line-height: 1.6;
+  line-height: 1.4;
   white-space: pre;
   word-wrap: normal;
   overflow-wrap: normal;
@@ -1099,10 +1100,10 @@
 
 .blog-post-body code {
   background-color: var(--surface-color);
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
+  padding: 0.15rem 0.3rem;
+  border-radius: 3px;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  font-size: var(--font-size-sm);
+  font-size: 0.75rem;
 }
 
 /* Copy button for code blocks */
@@ -1187,9 +1188,9 @@ pre[class*="language-"] {
   color: var(--text-primary) !important;
   background: transparent !important;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace !important;
-  font-size: var(--font-size-sm) !important;
+  font-size: 10px !important;
   text-shadow: none !important;
-  line-height: 1.6 !important;
+  line-height: 1.4 !important;
 }
 
 :not(pre) > code[class*="language-"],
@@ -1198,7 +1199,7 @@ pre[class*="language-"] {
   border: 1px solid var(--border-color) !important;
   border-radius: var(--border-radius) !important;
   margin: 0 !important;
-  padding: var(--spacing-lg) !important;
+  padding: var(--spacing-md) !important;
 }
 
 /* Dark mode overrides for Prism.js */
@@ -1207,7 +1208,7 @@ pre[class*="language-"] {
   color: #f1f5f9 !important;
   background: transparent !important;
   text-shadow: none !important;
-  line-height: 1.6 !important;
+  line-height: 1.4 !important;
 }
 
 [data-theme="dark"] :not(pre) > code[class*="language-"],
@@ -1216,7 +1217,7 @@ pre[class*="language-"] {
   border: 1px solid #334155 !important;
   border-radius: var(--border-radius) !important;
   margin: 0 !important;
-  padding: var(--spacing-lg) !important;
+  padding: var(--spacing-md) !important;
 }
 
 /* Remove any unwanted decorations from code blocks */
