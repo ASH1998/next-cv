@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollIndicator();
     initializeBackToTop();
     initializeRevealAnimations();
-    initializeMobileMenu();
     initializeTypewriterEffect();
     initializeTechStackToggle();
     initializeStarField();
@@ -46,7 +45,7 @@ function initializeTheme() {
 }
 
 function initializeSmoothScrolling() {
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-menu-link');
+    const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -221,77 +220,6 @@ function initializeRevealAnimations() {
     staggerElements.forEach((element, index) => {
         element.style.animationDelay = `${index * 0.1}s`;
     });
-}
-
-function initializeMobileMenu() {
-    // Check if mobile menu toggle already exists
-    if (document.querySelector('.mobile-menu-toggle')) {
-        return;
-    }
-    
-    const mobileMenuToggle = document.createElement('button');
-    mobileMenuToggle.className = 'mobile-menu-toggle';
-    mobileMenuToggle.innerHTML = '☰';
-    mobileMenuToggle.setAttribute('aria-label', 'Toggle mobile menu');
-    
-    const nav = document.querySelector('.nav');
-    if (nav) {
-        nav.appendChild(mobileMenuToggle);
-    }
-    
-    const mobileMenu = document.createElement('div');
-    mobileMenu.className = 'mobile-menu';
-    
-    // Update mobile menu links based on the current page
-    const currentPage = window.location.pathname;
-    let mobileMenuHTML = '';
-    
-    if (currentPage.includes('blog-post.html') || currentPage.includes('blogs.html')) {
-        mobileMenuHTML = `
-            <button class="mobile-menu-close" aria-label="Close mobile menu">×</button>
-            <ul class="mobile-menu-links">
-                <li><a href="index.html#about" class="mobile-menu-link">About</a></li>
-                <li><a href="index.html#experience" class="mobile-menu-link">Experience</a></li>
-                <li><a href="blogs.html" class="mobile-menu-link">Blogs</a></li>
-                <li><a href="index.html#contact" class="mobile-menu-link">Contact</a></li>
-            </ul>
-        `;
-    } else {
-        mobileMenuHTML = `
-            <button class="mobile-menu-close" aria-label="Close mobile menu">×</button>
-            <ul class="mobile-menu-links">
-                <li><a href="#about" class="mobile-menu-link">About</a></li>
-                <li><a href="#experience" class="mobile-menu-link">Experience</a></li>
-                <li><a href="blogs.html" class="mobile-menu-link">Blogs</a></li>
-                <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
-            </ul>
-        `;
-    }
-    
-    mobileMenu.innerHTML = mobileMenuHTML;
-    document.body.appendChild(mobileMenu);
-    
-    const mobileMenuClose = mobileMenu.querySelector('.mobile-menu-close');
-    
-    mobileMenuToggle.addEventListener('click', function() {
-        mobileMenu.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    mobileMenuClose.addEventListener('click', closeMobileMenu);
-    
-    mobileMenu.addEventListener('click', function(e) {
-        if (e.target === mobileMenu) {
-            closeMobileMenu();
-        }
-    });
-    
-    function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    window.closeMobileMenu = closeMobileMenu;
 }
 
 function initializeTypewriterEffect() {
@@ -488,11 +416,7 @@ function debounce(func, wait) {
 }
 
 window.addEventListener('resize', debounce(function() {
-    const mobileMenu = document.querySelector('.mobile-menu');
-    if (mobileMenu && window.innerWidth > 768) {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    // Handle any resize-specific functionality if needed in the future
 }, 250));
 
 function preloadImages() {
