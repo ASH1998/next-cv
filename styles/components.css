@@ -1079,7 +1079,7 @@
   overflow-x: auto;
   margin-bottom: var(--spacing-md);
   border: 1px solid var(--border-color);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .blog-post-body pre code {
@@ -1087,7 +1087,7 @@
   padding: 0;
   color: var(--text-primary) !important;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
-  font-size: 10px;
+  font-size: 12px;
   display: block;
   line-height: 1.4;
   white-space: pre;
@@ -1188,7 +1188,7 @@ pre[class*="language-"] {
   color: var(--text-primary) !important;
   background: transparent !important;
   font-family: 'Fira Code', 'Monaco', 'Consolas', monospace !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
   text-shadow: none !important;
   line-height: 1.4 !important;
 }

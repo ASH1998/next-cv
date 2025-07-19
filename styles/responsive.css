@@ -9,6 +9,11 @@
     text-align: center;
   }
 
+  .hero-image {
+    justify-self: center;
+    align-self: center;
+  }
+
   .hero-title {
     font-size: var(--font-size-4xl);
   }
@@ -116,6 +121,12 @@
   .hero-social {
     margin-top: var(--spacing-lg);
     justify-content: center;
+  }
+
+  .hero-image {
+    justify-self: center;
+    align-self: center;
+    margin: 0 auto;
   }
 
   .btn {
@@ -260,6 +271,14 @@
 
   .hero-content {
     padding: 0 var(--spacing-sm);
+  }
+
+  .hero-image {
+    justify-self: center;
+    align-self: center;
+    margin: var(--spacing-lg) auto 0;
+    display: flex;
+    justify-content: center;
   }
 
   .hero-title {
